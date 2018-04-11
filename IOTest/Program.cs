@@ -5,28 +5,25 @@ using System.Text;
 using System.Threading.Tasks;
 using System.IO; //For IO funksjoner
 
-//Ka e best, fil med oversikt, elle oversikt i begynne av alle filer?
-
-// 
-
 namespace IOTest
 {
+    /* The program will allow the user to create text files, one line at the time.
+     * You can add lines to existing files, and delete them.
+     * It keeps track of the files through as "hidden" txt file, and one can therefore not create a
+     * a text file with the name "Files.txt".
+     */
     class Program
     {
         static void Main(string[] args)
         {
-            //FilOversikt: If fil med info !finnes {Lag den}
-            //FileOverview();
-
-            //Switch variabel
             MainMenu();
-
-            //Save progress
         }
 
-        //Print meny
+        /* Prints the menu to the command line
+         */
         static void PrintMenu()
         {
+            System.Console.WriteLine("\n\n\n\n");
             System.Console.WriteLine("Welcome to I/O - test, you sexy hunk you");
             System.Console.WriteLine("***************************************************");
             System.Console.WriteLine(" 1 - See files");
@@ -37,13 +34,13 @@ namespace IOTest
             System.Console.WriteLine(" 0 - Exit the best program south of the North Pole (y would u tho?)\n");
         }
 
-        //Switch input
+         /* Switches input and calls appropriate function
+          */
         static void MainMenu()
         {
             string answer = "";
             while (answer != "0")
             {
-                //HovedMeny, hva vil du gjøre?
                 PrintMenu();
                 answer = System.Console.ReadLine();
                 switch (answer)
@@ -70,7 +67,8 @@ namespace IOTest
             }
         }
 
-        //Print FilVektor
+        /* Prints the content in "Files.txt", in other words the created files
+         */
         static void PrintFiles()
         {
             using (System.IO.StreamReader sr = new System.IO.StreamReader("Files.txt"))
@@ -83,7 +81,8 @@ namespace IOTest
             }
         }
 
-        //Print FilVektor med resirkulert funksjon
+        /* Prints the files from Files.txt using the getInfo() function
+         */
         static void PrintFiles2()
         {
             System.Console.WriteLine("\nFiles found:\n");
@@ -94,7 +93,12 @@ namespace IOTest
             }
         }
 
-        //Les lagret info, returner string array med [0]="" hvis Files.txt ikke eksisterer/first startup
+        /* Reads the filenames of "Files.txt" into a list of Strings, if it doesn't exist it throws an
+         * exception and returns an empty list
+         * @return  a list of strings, either empty or filled with file names
+         * 
+         * TODO change need to distinguish between empty Files.txt and non-existing
+         */
         static string[] GetInfo()
         {
             string[] ReturnList = { "" };
@@ -119,7 +123,11 @@ namespace IOTest
             }
         }
 
-        //Returnerer string[] med filnavn, [0] = "" hvis lista er tom.
+        /* Reads file names from Files.txt and creates the file if it doesn't exist
+         * @return  a list of strings, either filled with file names, or empty
+         * 
+         * TODO change according to function above to see if Files.txt is empty or doesn't exist
+         */
         static string[] FileOverview()
         {
             string[] Files = GetInfo();
@@ -131,7 +139,8 @@ namespace IOTest
             return Files;
         }
 
-        //Lag en Files.txt fil
+        /* Creates the Files.txt and places itself inside as the first entry
+         */
         static void NewFilesTxt()
         {
             string[] FirstList = { "Files.txt" };
@@ -141,7 +150,8 @@ namespace IOTest
             }
         }
 
-        //Legger til text til "TextFile1.txt" uten å oppdatere "Files.txt" med info om "TextFile1.txt", blir overskrevet hver gang.
+        /* Appends lines to TextFile1.txt, assums it exists and doesn't update Files.txt
+         */
         static void WriteToTextFile1()
         {
             PrintFileContent("TextFile1.txt");
@@ -167,6 +177,8 @@ namespace IOTest
             PrintFileContent("TextFile1.txt");
         }
 
+        /* Prints the content of a text file, catches exception if it doesn't exist
+         */
         static void PrintFileContent(string FileName)
         {
             try
@@ -190,17 +202,18 @@ namespace IOTest
             }
         }
 
-        //Create new file
+        /* Creates a new file name, checks for duplicates of already existing files
+         */
         static void CreateNewTextFile()
         {
             System.Console.WriteLine("What will be the file name?");
-            string FileName = System.Console.ReadLine();
-            //Check if file exist, refine to stop iterating if true
+            string fileName = System.Console.ReadLine();
+            // Check if file exist, refine to stop iterating if true
             String[] FileList = GetInfo();
             bool exist = false;
             foreach (string element in FileList)
             {
-                if (FileName == element)
+                if (fileName == element)
                 {
                     exist = true;
                     break;
@@ -212,8 +225,8 @@ namespace IOTest
             }
             else
             {
-                System.IO.StreamWriter sw = new System.IO.StreamWriter(FileName);
-                UpDateFiles(FileName);
+                System.IO.StreamWriter sw = new System.IO.StreamWriter(fileName);
+                UpDateFiles(fileName);
             }
         }
 
@@ -227,6 +240,8 @@ namespace IOTest
 
 
         //Oppdater ovesikt, anta "Files.txt" finnes
+        /* Appends a file name to Files.txt, assumes Files.txt exists
+         */
         static void UpDateFiles(string FileName)
         {
             using (System.IO.StreamWriter sw = System.IO.File.AppendText("Files.txt"))
