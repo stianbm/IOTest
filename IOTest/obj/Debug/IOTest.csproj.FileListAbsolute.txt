@@ -1,0 +1,6 @@
+c:\users\stianbm\documents\visual studio 2017\Projects\IOTest\IOTest\bin\Debug\IOTest.exe.config
+c:\users\stianbm\documents\visual studio 2017\Projects\IOTest\IOTest\bin\Debug\IOTest.exe
+c:\users\stianbm\documents\visual studio 2017\Projects\IOTest\IOTest\bin\Debug\IOTest.pdb
+c:\users\stianbm\documents\visual studio 2017\Projects\IOTest\IOTest\obj\Debug\IOTest.csprojResolveAssemblyReference.cache
+c:\users\stianbm\documents\visual studio 2017\Projects\IOTest\IOTest\obj\Debug\IOTest.exe
+c:\users\stianbm\documents\visual studio 2017\Projects\IOTest\IOTest\obj\Debug\IOTest.pdb
