@@ -52,7 +52,8 @@ namespace IOTest
                         System.Console.WriteLine("This part will be available in a future DLC");
                         break;
                     case "3":
-                        System.Console.WriteLine("This part will be available in a future DLC");
+                        //System.Console.WriteLine("This part will be available in a future DLC");
+                        deleteTextFile();
                         break;
                     case "4":
                         CreateNewTextFile();
@@ -71,13 +72,21 @@ namespace IOTest
          */
         static void PrintFiles()
         {
-            using (System.IO.StreamReader sr = new System.IO.StreamReader("Files.txt"))
+            try
             {
-                string line;
-                while ((line = sr.ReadLine()) != null)
+                using (System.IO.StreamReader sr = new System.IO.StreamReader("Files.txt"))
                 {
-                    System.Console.WriteLine(line);
+                    string line;
+                    while ((line = sr.ReadLine()) != null)
+                    {
+                        System.Console.WriteLine(line);
+                    }
                 }
+            }
+            catch(Exception e)
+            {
+                System.Console.WriteLine(e.Message);
+                CreateNewTextFile();
             }
         }
 
@@ -226,12 +235,46 @@ namespace IOTest
             else
             {
                 System.IO.StreamWriter sw = new System.IO.StreamWriter(fileName);
-                UpDateFiles(fileName);
+                UpDateFiles(fileName + ".txt");
             }
         }
 
         //Delete file
-
+        static void deleteTextFile()
+        {
+            System.Console.WriteLine("Write name of file");
+            string fileName = System.Console.ReadLine();
+            System.Console.WriteLine(fileName + ".txt");
+            try
+            {
+                //File.Exists(Directory.GetCurrentDirectory() + @"\YourFile.txt"
+                string directory = Directory.GetCurrentDirectory();
+                System.Console.WriteLine(directory);
+                if (File.Exists(Directory.GetCurrentDirectory() + "\"" + fileName + ".txt"))
+                {
+                    System.IO.File.Delete(fileName + ".txt");
+                    System.Console.WriteLine("File deleted");
+                    // Update Files.txt
+                    string[] files = GetInfo();
+                    System.IO.File.Delete("Files.txt");
+                    using (System.IO.StreamWriter sw = new System.IO.StreamWriter("Files.txt"))
+                    {
+                        for (uint i = 0; i < files.Length; i++)
+                        {
+                            sw.WriteLine(files[i]);
+                        }
+                    }
+                }
+                else
+                {
+                    System.Console.WriteLine("File not found :/");
+                }
+            }
+            catch(Exception e)
+            {
+                System.Console.WriteLine(e.Message);
+            }
+        }
 
         //Prettyfy "Files.txt"
 
