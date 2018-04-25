@@ -30,7 +30,8 @@ class Program
             switch (choice)
             {
                 case 1:
-                    System.Console.WriteLine("Case 1");
+                    System.Console.WriteLine("Option 1 chosen");
+                    File1();
                     break;
                 default:
                     System.Console.WriteLine("Not a valid option");
@@ -55,9 +56,18 @@ class Program
     static void printMenu()
     {
         System.Console.WriteLine(
-            "Welcome to I/O test! \n" +
-            "*********************\n" +
+            "Welcome to I/O test!\n" +
+            "***************************************************\n" +
+            "1 - Print content and append lines to \"File1\"\n" +
             "0 - exit \n \n");
+
+    }
+
+    /* A function that checks if "File1.txt" exists, creates it if it doesn't,
+     * prints its content and appends as many lines as desired.
+     */
+    static void File1()
+    {
 
     }
 }
