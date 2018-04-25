@@ -24,14 +24,14 @@ namespace IOTest
         static void PrintMenu()
         {
             System.Console.WriteLine("\n\n\n\n");
-            System.Console.WriteLine("Welcome to I/O - test, you sexy hunk you");
-            System.Console.WriteLine("***************************************************");
+            System.Console.WriteLine("Welcome to I/O - test");
+            System.Console.WriteLine("*****************************");
             System.Console.WriteLine(" 1 - See files");
             System.Console.WriteLine(" 2 - Select file");
             System.Console.WriteLine(" 3 - Delete file");
             System.Console.WriteLine(" 4 - Make new file");
             System.Console.WriteLine(" 5 - Write to \"TextFile1.txt\"");
-            System.Console.WriteLine(" 0 - Exit the best program south of the North Pole (y would u tho?)\n");
+            System.Console.WriteLine(" 0 - Exit the program\n");
         }
 
          /* Switches input and calls appropriate function
@@ -68,25 +68,38 @@ namespace IOTest
             }
         }
 
-        /* Prints the content in "Files.txt", in other words the created files
+        /* Prints the content in "Files.txt", in other words the created files.
+         * If "Files.txt does not exist then it creates one.
+         * When printing it ignores the file where the data is stored
          */
         static void PrintFiles()
         {
             try
             {
-                using (System.IO.StreamReader sr = new System.IO.StreamReader("Files.txt"))
+                if (File.Exists("Files.txt"))
                 {
-                    string line;
-                    while ((line = sr.ReadLine()) != null)
+                    using (System.IO.StreamReader sr = new System.IO.StreamReader("Files.txt"))
                     {
-                        System.Console.WriteLine(line);
+                        string line;
+                        while ((line = sr.ReadLine()) != null)
+                        {
+                            if (line != "Files.txt")
+                            {
+                                System.Console.WriteLine(line);
+                            }
+                        }
                     }
                 }
+                else
+                {
+                    System.IO.StreamReader sw = new System.IO.StreamWriter("Files.txt");
+                    System.Console.WriteLine("Files.txt");
+                }
+               
             }
-            catch(Exception e)
+            catch (Exception e)
             {
-                System.Console.WriteLine(e.Message);
-                CreateNewTextFile();
+                System.Console.WriteLine(e.StackTrace);
             }
         }
 
@@ -282,7 +295,6 @@ namespace IOTest
         //FileMenu
 
 
-        //Oppdater ovesikt, anta "Files.txt" finnes
         /* Appends a file name to Files.txt, assumes Files.txt exists
          */
         static void UpDateFiles(string FileName)
