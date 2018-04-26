@@ -22,14 +22,7 @@ using System.IO;
         {
             int choice = -1;
             printMenu();
-            try
-            {
-                choice = Convert.ToInt16(System.Console.ReadLine());
-            }
-            catch (Exception e)
-            {
-                System.Console.WriteLine(e.Message);
-            }
+            choice = getInput();
 
 
             while (choice != 0)
@@ -46,15 +39,7 @@ using System.IO;
                 }
 
                 printMenu();
-                try
-                {
-                    choice = Convert.ToInt16(System.Console.ReadLine());
-                }
-                catch (Exception e)
-                {
-                    System.Console.WriteLine(e.Message);
-                    choice = -1;
-                }
+                choice = getInput();
             }
         }
 
@@ -69,6 +54,26 @@ using System.IO;
                 "1 - Print content and append lines to \"File1\"\n" +
                 "0 - exit \n \n");
 
+        }
+
+        /*
+         * A function to get input from user and check that it's OK
+         * 
+         * @return  an int for the switch in menu
+         */
+        static int getInput()
+        {
+            int choice = -1;
+            try
+            {
+                choice = Convert.ToInt16(System.Console.ReadLine());
+            }
+            catch (Exception e)
+            {
+                System.Console.WriteLine(e.Message);
+                choice = -1;
+            }
+            return choice;
         }
 
         /* 
