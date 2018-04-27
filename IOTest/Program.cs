@@ -31,7 +31,7 @@ using System.IO;
                 {
                     case 1:
                         System.Console.WriteLine("Option 1 chosen");
-                        File1();
+                        startFile("File1.txt");
                         break;
                     case 2:
                         System.Console.WriteLine("Option 2 chosen");
@@ -82,29 +82,35 @@ using System.IO;
         }
 
         /* 
-         * A function that checks if "File1.txt" exists, creates it if it doesn't,
+         * A function that checks if a file exists, creates it if it doesn't,
          * prints its content and appends as many lines as desired.
+         * 
+         * @param   the file to be created and/or written to
          */
-        static void File1()
+        static void startFile(string fileName)
         {
             try
             {
-                if (File.Exists("File1.txt"))
+                if (File.Exists(fileName))
                 {
-                    printFile("File1.txt");
+                    printFile(fileName);
                 }
                 else
                 {
-                    System.Console.WriteLine("File1 doesn't exist");
-                    createFile("File1.txt");
+                    System.Console.WriteLine(fileName + " doesn't exist");
+                    createFile(fileName);
                 }
-                appendLineToFile("File1.txt");
+                appendLineToFile(fileName);
             }
             catch(Exception e)
             {
                 System.Console.WriteLine(e.StackTrace);
             }
-            
+        }
+
+        static void checkAndStartFile(string fileName)
+        {
+
         }
 
         /* 
@@ -130,7 +136,8 @@ using System.IO;
          * file exist and doesn't catch exceptions
          * 
          * NOTE: Currently open and close connection for each line to append,
-         * assume this to be safer than having loop "inside" connection.
+         * assume this to be safer than having loop "inside" connection, but
+         * probably slower.
          * 
          * @paran fileName  The name of the file to have lines appended
          */
