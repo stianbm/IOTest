@@ -57,6 +57,7 @@ using System.IO;
         static void printMenu()
         {
             System.Console.WriteLine(
+                "\n\n" +
                 "Welcome to I/O test!\n" +
                 "***************************************************\n" +
                 "1 - Print content and append lines to \"File1\"\n" +
@@ -129,6 +130,7 @@ using System.IO;
                 {
                     System.Console.WriteLine("Files.txt does not exist");
                     createFile("Files.txt");
+                    catalogFile("Files.txt");
                 }
             }
             catch(Exception e)
@@ -163,7 +165,7 @@ using System.IO;
          * assume this to be safer than having loop "inside" connection, but
          * probably slower.
          * 
-         * @paran fileName  The name of the file to have lines appended
+         * @param fileName  The name of the file to have lines appended
          */
         static void appendLineToFile(string fileName)
         {
@@ -182,6 +184,26 @@ using System.IO;
                         sw.WriteLine(input);
                     }
                 }
+            }
+        }
+
+        /*
+         * Appends a filename to the "Files.txt" used for keeping track of files.
+         * 
+         * @param fileName  The fileName to be appended to "Files.txt"
+         */
+        static void catalogFile(string fileName)
+        {
+            try
+            {
+                using (StreamWriter sw = File.AppendText("Files.txt"))
+                {
+                    sw.WriteLine(fileName);
+                }
+                System.Console.WriteLine(fileName + " appended to catalog");
+            }catch(Exception e)
+            {
+                System.Console.WriteLine(e.StackTrace);
             }
         }
 
