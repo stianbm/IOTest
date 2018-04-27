@@ -30,15 +30,19 @@ using System.IO;
                 switch (choice)
                 {
                     case 1:
-                        System.Console.WriteLine("Option 1 chosen");
+                        System.Console.WriteLine("Option 1 chosen\n");
                         startFile("File1.txt");
                         break;
                     case 2:
-                        System.Console.WriteLine("Option 2 chosen");
+                        System.Console.WriteLine("Option 2 chosen\n");
                         printFile("File1.txt");
                         break;
+                    case 3:
+                        System.Console.WriteLine("Option 3 chosen\n");
+                        printFiles();
+                        break;
                     default:
-                        System.Console.WriteLine("Not a valid option");
+                        System.Console.WriteLine("Not a valid option\n");
                         break;
                 }
 
@@ -57,6 +61,7 @@ using System.IO;
                 "***************************************************\n" +
                 "1 - Print content and append lines to \"File1\"\n" +
                 "2 - Print content of \"File1\"\n" +
+                "3 - Print names of tracked files\n" +
                 "0 - exit \n \n");
 
         }
@@ -108,9 +113,28 @@ using System.IO;
             }
         }
 
-        static void checkAndStartFile(string fileName)
+        /*
+         * Prints available files to be written to or read, keeps track via
+         * "Files.txt" and creates one if it can't find it
+         */
+        static void printFiles()
         {
-
+            try
+            {
+                if (File.Exists("Files.txt"))
+                {
+                    printFile("Files.txt");
+                }
+                else
+                {
+                    System.Console.WriteLine("Files.txt does not exist");
+                    createFile("Files.txt");
+                }
+            }
+            catch(Exception e)
+            {
+                System.Console.WriteLine(e.StackTrace);
+            }
         }
 
         /* 
