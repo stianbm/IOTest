@@ -4,6 +4,8 @@ using System.IO;
 /* 
  * A simple program to test some simple file I/O
  * 
+ * TODO:    Allow for deletion of files
+ * 
  * @author stianbm
  */
  namespace Program {
