@@ -2,9 +2,10 @@
 using System.IO;
 
 /* 
- * A simple program to test some simple file I/O
+ * A simple program to test file I/O
  * 
- * TODO:    Allow for deletion of files
+ * TODO:    Refactor, "Files.txt" is unecessary
+ *          Allow for deletion of files
  * 
  * @author stianbm
  */
@@ -13,7 +14,7 @@ using System.IO;
     {
         static void Main(string[] args)
         {
-            menuSwitcher();
+            MenuSwitcher();
         }
 
         /*
@@ -24,11 +25,11 @@ using System.IO;
         /* 
          * The main loop of the program, prints a menu, takes input, calls the appropriate functions and terminate
          */
-        private static void menuSwitcher()
+        private static void MenuSwitcher()
         {
             int choice = -1;
-            printMenu();
-            choice = getIntInput();
+            PrintMenu();
+            choice = GetIntInput();
 
 
             while (choice != 0)
@@ -37,38 +38,38 @@ using System.IO;
                 {
                     case 1:
                         System.Console.WriteLine("Option 1 chosen\n");
-                        startFile("File1.txt");
+                        StartFile("File1.txt");
                         break;
                     case 2:
                         System.Console.WriteLine("Option 2 chosen\n");
-                        printFile("File1.txt");
+                        PrintFile("File1.txt");
                         break;
                     case 3:
                         System.Console.WriteLine("Option 3 chosen\n");
-                        printFiles();
+                        PrintFiles();
                         break;
                     case 4:
                         System.Console.WriteLine("Option 4 chosen\n");
-                        writeToFile();
+                        WriteToFile();
                         break;
                     case 5:
                         System.Console.WriteLine("Option 4 chosen\n");
-                        printChosenFile();
+                        PrintChosenFile();
                         break;
                     default:
                         System.Console.WriteLine("Not a valid option\n");
                         break;
                 }
 
-                printMenu();
-                choice = getIntInput();
+                PrintMenu();
+                choice = GetIntInput();
             }
         }
 
         /* 
          * A function that prints the menu
          */
-        private static void printMenu()
+        private static void PrintMenu()
         {
             System.Console.WriteLine(
                 "\n\n" +
@@ -88,7 +89,7 @@ using System.IO;
          * 
          * @return  an int for the switch in menu
          */
-        private static int getIntInput()
+        private static int GetIntInput()
         {
             int choice = -1;
             try
@@ -109,20 +110,20 @@ using System.IO;
          * 
          * @param   the file to be created and/or written to
          */
-        private static void startFile(string fileName)
+        private static void StartFile(string fileName)
         {
             try
             {
                 if (File.Exists(fileName))
                 {
-                    printFile(fileName);
+                    PrintFile(fileName);
                 }
                 else
                 {
                     System.Console.WriteLine(fileName + " doesn't exist");
-                    createFile(fileName);
+                    CreateFile(fileName);
                 }
-                appendLineToFile(fileName);
+                AppendLineToFile(fileName);
             }
             catch(Exception e)
             {
@@ -134,18 +135,18 @@ using System.IO;
          * Prints available files to be written to or read, keeps track via
          * "Files.txt" and creates one if it can't find it
          */
-        private static void printFiles()
+        private static void PrintFiles()
         {
             try
             {
                 if (File.Exists("Files.txt"))
                 {
-                    printFile("Files.txt");
+                    PrintFile("Files.txt");
                 }
                 else
                 {
                     System.Console.WriteLine("Files.txt does not exist");
-                    createFile("Files.txt");
+                    CreateFile("Files.txt");
                 }
             }
             catch(Exception e)
@@ -160,7 +161,7 @@ using System.IO;
          * 
          * @param fileName  The name of the file to be printed
          */
-        private static void printFile(string fileName)
+        private static void PrintFile(string fileName)
         {
             try
             {
@@ -196,7 +197,7 @@ using System.IO;
          * 
          * @param fileName  The name of the file to have lines appended
          */
-        private static void appendLineToFile(string fileName)
+        private static void AppendLineToFile(string fileName)
         {
             string choice = "";
             string input = "";
@@ -222,7 +223,7 @@ using System.IO;
          * 
          * @param fileName  The fileName to be appended to "Files.txt"
          */
-        private static void catalogFile(string fileName)
+        private static void CatalogFile(string fileName)
         {
             try
             {
@@ -242,18 +243,18 @@ using System.IO;
          * 
          * @param fileName  The desired name of the new file
          */
-        private static void createFile(string fileName)
+        private static void CreateFile(string fileName)
         {
             using (StreamWriter sw = File.CreateText(fileName)) { }
             System.Console.WriteLine("Created file: " + fileName);
-            catalogFile(fileName);
+            CatalogFile(fileName);
         }
 
         /*
          * Gets user input, see if fileName is legal and exist, if not legal deny
          * if legal and exist write, if not exist ask to create
          */
-        private static void writeToFile()
+        private static void WriteToFile()
         {
             string choice = "";
             System.Console.WriteLine("Press n to exit or anything else to continue and choose file");
@@ -262,13 +263,13 @@ using System.IO;
             {
                 System.Console.WriteLine("Choose file name:");
                 string fileName = System.Console.ReadLine() + ".txt";
-                if (nameAllowed(fileName))
+                if (NameAllowed(fileName))
                 {
-                    if (!isInCatalog(fileName))
+                    if (!IsInCatalog(fileName))
                     {
-                        createFile(fileName);
+                        CreateFile(fileName);
                     }
-                    appendLineToFile(fileName);
+                    AppendLineToFile(fileName);
                 }
             }
         }
@@ -278,7 +279,7 @@ using System.IO;
          * 
          * @param fileName  The file to be checked
          */
-        private static bool nameAllowed(string fileName)
+        private static bool NameAllowed(string fileName)
         {
             for(uint i = 0; i < blackList.Length; i++)
             {
@@ -295,7 +296,7 @@ using System.IO;
         /*
          * Checks if a file is in the Files.txt catalog
          */
-        private static bool isInCatalog(string fileName)
+        private static bool IsInCatalog(string fileName)
         {
             try
             {
@@ -327,11 +328,11 @@ using System.IO;
         }
 
 
-        private static void printChosenFile()
+        private static void PrintChosenFile()
         {
             System.Console.WriteLine("Enter the name of the file:");
             string fileName = System.Console.ReadLine() + ".txt";
-            printFile(fileName);
+            PrintFile(fileName);
         }
     }
 }
