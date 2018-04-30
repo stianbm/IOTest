@@ -4,7 +4,7 @@ using System.IO;
 /* 
  * A simple program to test file I/O
  * 
- * TODO:    Refactor, "Files.txt" is unecessary
+ * TODO:    Refactor, "Files.txt" is unecessary - or is it? Need for print function
  *          Allow for deletion of files
  * 
  * @author stianbm

@@ -1,3 +1,4 @@
 # Produced files in debug and bin
 *.exe
 *.pdb
+*.suo
